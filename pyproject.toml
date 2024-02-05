@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "freediving"
+version = "0.1.0"
+description = "Freediving data utilities"
+authors = ["Djane Rey Mabelin <thedjaney@gmail.com>"]
+readme = "README.md"
+exclude = ["*/**/tests.py"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+garmin_fit_sdk = "*"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
