@@ -81,7 +81,7 @@ class Dive(object):
 
         for t in self._timeline:
             ascending = t['timestamp'] > self._peak['timestamp']
-            if ascending == ascend and (not ascending and t['depth'] > meters or ascending and t['depth'] < meters):
+            if ascending == ascend and (not ascending and t['depth'] >= meters or ascending and t['depth'] <= meters):
 
                 if 'annotations' not in t:
                     t['annotations'] = []

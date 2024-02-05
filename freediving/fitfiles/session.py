@@ -53,5 +53,5 @@ class Session(object):
             e = events[0]
             if e['timestamp'] > timestamp:
                 break
-            popped.append(events.pop())
+            popped.append(events.pop(0))
         return popped
