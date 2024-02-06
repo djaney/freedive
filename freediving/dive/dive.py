@@ -12,13 +12,13 @@ class Dive(object):
         dive = Dive()
         dt = datetime.datetime.now()
 
-        for i in range(target_depth+1):
-            dive.add(dt, i*descent_rate, rate=-descent_rate)
-            dt += datetime.timedelta(seconds=1)
+        for i in range(0, target_depth+1):
+            dive.add(dt, i, rate=-descent_rate)
+            dt += datetime.timedelta(seconds=1/descent_rate)
 
-        for i in range(target_depth+1):
-            dive.add(dt, target_depth-i*ascent_rate, rate=ascent_rate)
-            dt += datetime.timedelta(seconds=1)
+        for i in range(target_depth-1, -1, -1):
+            dive.add(dt, i, rate=ascent_rate)
+            dt += datetime.timedelta(seconds=1/ascent_rate)
 
         dive.finish()
 
