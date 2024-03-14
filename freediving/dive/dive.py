@@ -24,6 +24,18 @@ class Dive(object):
 
         return dive
 
+    @property
+    def timeline(self):
+        return self._timeline
+
+    @property
+    def start_time(self):
+        return self._timeline[0]['timestamp']
+
+    @property
+    def end_time(self):
+        return self._timeline[-1]['timestamp']
+
     def add(self, timestamp, depth, rate=None, temp=None, events=None):
         if self._finish:
             raise Exception("Cannot add, already finished")
@@ -92,19 +104,25 @@ class Dive(object):
         self._timeline = self._trim_ends(self._timeline)
         self._timeline = self._fill_ends(self._timeline)
 
-    def get_plot_data(self):
+    def get_plot_data(self, with_ts=False):
         xpoints = []
         ypoints = []
         annotations = []
+        timestamps = []
         start_ts = self._timeline[0]['timestamp']
         for t in self._timeline:
             x = float((t['timestamp'] - start_ts).total_seconds())
             y = float(-t['depth'])
             xpoints.append(x)
             ypoints.append(y)
+            timestamps.append(t['timestamp'])
             for a in t.get('annotations', []):
                 annotations.append((a, (x, y)))
-        return xpoints, ypoints, annotations
+
+        if with_ts:
+            return timestamps, xpoints, ypoints, annotations
+        else:
+            return xpoints, ypoints, annotations
 
     def _trim_ends(self, timeline):
         if not self._finish:

@@ -1,5 +1,6 @@
 import datetime
 from freediving.dive.dive import Dive
+from freediving.dive.errors import DiveNotFoundError
 
 
 class Session(object):
@@ -9,6 +10,17 @@ class Session(object):
 
     def get_dive(self, index):
         return self._dives[index]
+
+    def get_dive_by_time(self, timestamp):
+        # check if time is within a dive, use that
+        for dive in self._dives:
+            if dive.start_time <= timestamp <= dive.end_time:
+                return dive
+        # otherwise, check next dive
+        for dive in self._dives:
+            if timestamp <= dive.start_time:
+                return dive
+        raise DiveNotFoundError("Cannot find dive")
 
     @staticmethod
     def from_messages(messages):

@@ -1,4 +1,5 @@
 import unittest
+import datetime
 from freediving.fitfiles import fit_to_session
 
 
@@ -26,3 +27,76 @@ class TestReadFromFit(unittest.TestCase):
              -1.925, -1.173, 0.0], y_points)
         self.assertEqual([('Charge', (8.0, -5.193)), ('Freefall', (15.0, -10.542)), ('Grab tag', (25.0, -11.959)),
                           ('Relax', (45.0, -4.971))], annotations)
+
+    def test_read_with_ts(self):
+        session = fit_to_session("samples/sample.fit")
+        dive = session.get_dive(0)
+        dive.clean()
+        dive.annotate_by_meters(5, "Charge")
+        dive.annotate_by_meters(10, "Freefall")
+        dive.annotate_by_meters(5, "Relax", ascend=True)
+        dive.peak_to_annotation("Grab tag")
+        ts_points, x_points, y_points, annotations = dive.get_plot_data(with_ts=True)
+
+        self.assertEqual(
+            [datetime.datetime(2024, 1, 13, 0, 41, 25, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 41, 26, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 41, 27, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 41, 28, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 41, 29, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 41, 30, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 41, 31, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 41, 32, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 41, 33, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 41, 34, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 41, 35, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 41, 36, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 41, 37, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 41, 38, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 41, 39, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 41, 40, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 41, 41, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 41, 42, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 41, 43, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 41, 44, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 41, 45, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 41, 46, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 41, 47, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 41, 48, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 41, 49, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 41, 50, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 41, 51, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 41, 52, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 41, 53, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 41, 54, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 41, 55, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 41, 56, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 41, 57, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 41, 58, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 41, 59, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 42, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 42, 1, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 42, 2, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 42, 3, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 42, 4, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 42, 5, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 42, 6, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 42, 7, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 42, 8, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 42, 9, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 42, 10, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 42, 11, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 42, 12, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 42, 13, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 42, 14, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 42, 15, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 42, 16, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 42, 17, tzinfo=datetime.timezone.utc),
+             datetime.datetime(2024, 1, 13, 0, 42, 18, tzinfo=datetime.timezone.utc)],
+            ts_points)
+
+    def test_get_dive_by_time(self):
+        session = fit_to_session("samples/sample.fit")
+        dive_expected = session.get_dive(0)
+        dive_actual = session.get_dive_by_time(datetime.datetime(2024, 1, 13, 0, 41, 20, tzinfo=datetime.timezone.utc))
+        self.assertIs(dive_expected, dive_actual)
