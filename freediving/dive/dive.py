@@ -35,6 +35,11 @@ class Dive(object):
     @property
     def end_time(self):
         return self._timeline[-1]['timestamp']
+    @property
+    def peak(self):
+        if not self._peak:
+            return None
+        return self._peak['depth']
 
     def add(self, timestamp, depth, rate=None, temp=None, events=None):
         if self._finish:

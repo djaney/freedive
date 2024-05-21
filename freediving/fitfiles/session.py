@@ -8,6 +8,11 @@ class Session(object):
     def __init__(self, dives):
         self._dives = dives
 
+    @property
+    def length(self):
+        return len(self._dives)
+
+
     def get_dive(self, index):
         return self._dives[index]
 
